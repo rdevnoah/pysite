@@ -10,7 +10,7 @@ def list(request):
     data = {
         'list': guestbooklist
     }
-    print(data)
+
     return render(request, 'guestbook/list.html', data)
 
 

@@ -18,15 +18,35 @@ from django.urls import path
 from main import views as main_views
 from guestbook import views as guestbook_views
 from user import views as user_views
+from board import views as board_views
 
 urlpatterns = [
+    path('', main_views.index),
+    path('board/modify/<int:id>', board_views.modify),
+    path('board/modifyform/<int:id>', board_views.modifyform),
+    path('board/detail/<int:id>', board_views.detail),
+    path('board/write/', board_views.write),
+    path('board/write/<int:parent_id>', board_views.write_reply),
+    path('board/writeform', board_views.writeform),
+    path('board/writeform/<int:id>', board_views.writeform),
+    path('board/<int:nowpage>', board_views.list),
+    path('board/', board_views.list),
+
     path('guestbook/delete', guestbook_views.delete),
     path('guestbook/deleteform/<int:id>', guestbook_views.deleteform),
     path('guestbook/add', guestbook_views.add),
+    path('guestbook/', guestbook_views.list),
+
     path('user/joinsuccess', user_views.joinsuccess),
     path('user/join', user_views.join),
     path('user/joinform', user_views.joinform),
-    path('guestbook/', guestbook_views.list),
-    path('', main_views.index),
+    path('user/loginform', user_views.loginform),
+    path('user/login', user_views.login),
+    path('user/logout', user_views.logout),
+    path('user/updateform', user_views.updateform),
+    path('user/update', user_views.update),
+    path('user/api/checkemail', user_views.checkemail),
+
+
     path('admin/', admin.site.urls),
 ]

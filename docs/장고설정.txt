@@ -113,3 +113,33 @@ Application 작업
 
 # 정적 파일 설정
 settings.py 안의 맨 아래, STATICS 부분 확인하자.
+
+
+
+
+
+1_장고의배신.txt - https://www.slideshare.net/EunhyangKim2/ss-118560530 (심심하면)
+
+필터
+mathfilter 설치하기
+   설치            pip install django-mathfilters
+settings.py 앱추가      INSTALLED_APPS = [
+          ...
+             'mathfilters',
+                  ...
+   사용할 html 위에 추가      {% load mathfilters %}
+
+세션사용
+   request.session['authuser'] = model_to_dict(authuser)
+   ** 세션을 메모리가 아니라 디스크로 저장되기 때문에 브라우저를 닫아도 유지가됨
+      => 메모리로 만들어야 한다.
+      => settings.py => SESSION_EXPIRE_AT_BROWSER_CLOSE = True 추가
+   ** 세션에 저장된 dict가 수정이 안될 때
+      => settings.py => SESSION_SAVE_EVERY_REQUEST = True 추가
+
+JSON 응답 - python_ch3 에서 실습
+   return JsonResponse(jsonresult)
+
+
+게시판 만들기
+
