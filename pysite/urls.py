@@ -22,6 +22,8 @@ from board import views as board_views
 
 urlpatterns = [
     path('', main_views.index),
+
+    path('board/delete/<int:id>', board_views.delete),
     path('board/modify/<int:id>', board_views.modify),
     path('board/modifyform/<int:id>', board_views.modifyform),
     path('board/detail/<int:id>', board_views.detail),
@@ -30,6 +32,7 @@ urlpatterns = [
     path('board/writeform', board_views.writeform),
     path('board/writeform/<int:id>', board_views.writeform),
     path('board/<int:nowpage>', board_views.list),
+    path('board/<int:nowpage>/<str:kwd>', board_views.list),
     path('board/', board_views.list),
 
     path('guestbook/delete', guestbook_views.delete),

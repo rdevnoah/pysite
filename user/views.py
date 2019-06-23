@@ -29,10 +29,26 @@ def join(request):
 
 
 def loginform(request):
+    authuser = None
+    try:
+        authuser = request.session['authuser']
+    except Exception as e:
+        authuser = None
+    if authuser is not None:
+        return HttpResponseRedirect('/')
+
     return render(request, 'user/loginform.html')
 
 
 def login(request):
+    authuser = None
+    try:
+        authuser = request.session['authuser']
+    except Exception as e:
+        authuser = None
+    if authuser is not None:
+        return HttpResponseRedirect('/')
+
     results = User.objects.filter(email=request.POST['email']).filter(password=request.POST['password'])
 
     # 로그인 실패

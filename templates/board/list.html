@@ -6,8 +6,26 @@
 {% endblock %}
 
 {% block content%}
+<script src="/assets/js/jquery/jquery-1.9.0.js"></script>
+<script>
+
+	function search(){
+		keyword = $('#kwd').val();
+		if (keyword == ''){
+			alert('키워드를 입력하세요');
+			return false;
+		}
+		url = '/board/1/' + keyword;
+		$('#search_form').attr('action', url);
+		console.log(url);
+		return true;
+	}
+
+</script>
+
 <div id="board">
-	<form id="search_form" action="" method="post">
+	<form id="search_form" action="#" method="post" onsubmit="return search()">
+		{% csrf_token %}
 		<input type="text" id="kwd" name="kwd" value="">
 		<input type="submit" value="찾기">
 	</form>
@@ -23,15 +41,21 @@
 		{% for post in list %}
 		<tr>
 			<td>[{{ post.id}}]</td>
-			{% if request.session.authuser is None %}
-			<td>{{ post.title }}</td>
-			{% else %}
-			<td><a href="/board/detail/{{post.id}}">{{ post.title }}</a></td>
-			{% endif %}
+
+			<td style='text-align: left; padding-left:{{ 20|mul:post.depth }}px'>
+				{% if post.depth is not 0 %}
+				<img src="/assets/images/reply.png">
+				{% endif %}
+				{% if request.session.authuser is None %}
+					{{ post.title }}
+				{% else %}
+					<a href="/board/detail/{{post.id}}">{{ post.title }}</a>
+				{% endif %}
+			</td>
 			<td>{{ post.user.name }}</td>
 			<td>{{ post.hit }}</td>
 			<td>{{ post.regdate }}</td>
-			<td><a href="" class="del">삭제</a></td>
+			<td>{% if post.user_id is request.session.authuser.id %}<a href="/board/delete/{{post.id}}" class="del">삭제</a>{% endif %}</td>
 		</tr>
 		{% endfor %}
 	</table>
