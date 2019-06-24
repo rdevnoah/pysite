@@ -38,24 +38,24 @@
 			<th>작성일</th>
 			<th>&nbsp;</th>
 		</tr>
-		{% for post in list %}
+		{% for i, j in list%}
 		<tr>
-			<td>[{{ post.id}}]</td>
+			<td>[{{ i }}]</td>
 
-			<td style='text-align: left; padding-left:{{ 20|mul:post.depth }}px'>
-				{% if post.depth is not 0 %}
+			<td style='text-align: left; padding-left:{{ 20|mul:j.depth }}px'>
+				{% if j.depth is not 0 %}
 				<img src="/assets/images/reply.png">
 				{% endif %}
 				{% if request.session.authuser is None %}
-					{{ post.title }}
+					{{ j.title }}
 				{% else %}
-					<a href="/board/detail/{{post.id}}">{{ post.title }}</a>
+					<a href="/board/detail/{{j.id}}">{{ j.title }}</a>
 				{% endif %}
 			</td>
-			<td>{{ post.user.name }}</td>
-			<td>{{ post.hit }}</td>
-			<td>{{ post.regdate }}</td>
-			<td>{% if post.user_id is request.session.authuser.id %}<a href="/board/delete/{{post.id}}" class="del">삭제</a>{% endif %}</td>
+			<td>{{ j.user.name }}</td>
+			<td>{{ j.hit }}</td>
+			<td>{{ j.regdate }}</td>
+			<td>{% if j.user_id is request.session.authuser.id %}<a href="/board/delete/{{j.id}}" class="del">삭제</a>{% endif %}</td>
 		</tr>
 		{% endfor %}
 	</table>

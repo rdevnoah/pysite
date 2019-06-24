@@ -7,15 +7,23 @@ from django.shortcuts import render
 from board.models import Board
 
 
-def delete(request, id):
+def check_login_auth(request):
     authuser = None
     try:
         authuser = request.session['authuser']
     except Exception as e:
         authuser = None
+    return authuser
+
+
+def delete(request, id):
+    authuser = check_login_auth(request)
+
     if authuser is None:
         return HttpResponseRedirect('/user/loginform')
+
     board = Board.objects.get(id=id)
+
     if authuser['id'] != board.user.id:
         return HttpResponseRedirect('/board')
 
@@ -28,11 +36,7 @@ def delete(request, id):
 
 
 def modify(request, id):
-    authuser = None
-    try:
-        authuser = request.session['authuser']
-    except Exception as e:
-        authuser = None
+    authuser = check_login_auth(request)
     if authuser is None:
         return HttpResponseRedirect('/user/loginform')
 
@@ -49,11 +53,7 @@ def modify(request, id):
 
 
 def modifyform(request, id):
-    authuser = None
-    try:
-        authuser = request.session['authuser']
-    except Exception as e:
-        authuser = None
+    authuser = check_login_auth(request)
     if authuser is None:
         return HttpResponseRedirect('/user/loginform')
 
@@ -67,11 +67,7 @@ def modifyform(request, id):
 
 
 def detail(request, id):
-    authuser = None
-    try:
-        authuser = request.session['authuser']
-    except Exception as e:
-        authuser = None
+    authuser = check_login_auth(request)
     if authuser is None:
         return HttpResponseRedirect('/user/loginform')
 
@@ -88,7 +84,6 @@ def detail(request, id):
         read_list = already_read.split(':')
         check = False
         for read in read_list:
-            print(str(id), '-------', read)
             if read == str(id):
                 check = True
                 break
@@ -125,19 +120,26 @@ def list(request, nowpage=1, kwd=None):
                   start_row_num:post_count_per_page + start_row_num]
 
     pagenum = []
+    postnum = []
+
+    for i in range (1, post_count_per_page + 1):
+        postnum.append(total_post_count - (i+ (nowpage-1)*post_count_per_page) + 1 )
 
     for i in range(start_page_of_page_group, end_page_of_page_group+1):
         pagenum.append(i)
 
+    zipped_list = zip(postnum, results)
+
     data = {
         'total_count': total_post_count,
-        'pagenum' : pagenum,
+        'postnum': postnum,
+        'pagenum': pagenum,
         'previous_page_group' : previous_page_group,
         'next_page_group': next_page_group,
         'start_page_of_page_group': start_page_of_page_group,
         'end_page_of_page_group': end_page_of_page_group,
         'nowpage' : nowpage,
-        'list' : results
+        'list' : zipped_list
 
     }
 
@@ -145,6 +147,10 @@ def list(request, nowpage=1, kwd=None):
 
 
 def writeform(request, id=None):
+    authuser = check_login_auth(request)
+    if authuser is None:
+        return HttpResponseRedirect('/user/loginform')
+
     if id is None:
         return render(request, 'board/write.html')
     else:
@@ -153,11 +159,7 @@ def writeform(request, id=None):
 
 
 def write_reply(request, parent_id):
-    authuser = None
-    try:
-        authuser = request.session['authuser']
-    except Exception as e:
-        authuser = None
+    authuser = check_login_auth(request)
     if authuser is None:
         return HttpResponseRedirect('/user/loginform')
 
@@ -188,11 +190,7 @@ def write_reply(request, parent_id):
 
 
 def write(request):
-    authuser = None
-    try:
-        authuser = request.session['authuser']
-    except Exception as e:
-        authuser = None
+    authuser = check_login_auth(request)
     if authuser is None:
         return HttpResponseRedirect('/user/loginform')
     board = Board()

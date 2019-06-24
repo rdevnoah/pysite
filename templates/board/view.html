@@ -18,13 +18,13 @@
 			<td class="label">내용</td>
 			<td>
 				<div class="view-content">
-					{{ board.content}}
+					{{ board.content | linebreaksbr }}
 				</div>
 			</td>
 		</tr>
 	</table>
 	<div class="bottom">
-		<a href="/board">글목록</a>
+		<a href="javascript:javascript:history.go(-1)">글목록</a>
 		{% if request.session.authuser.id is board.user.id %}
 		<a href="/board/modifyform/{{ board.id }}">글수정</a>
 		{% else %}
