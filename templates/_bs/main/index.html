@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CSS Main Sample</title>
+
+<!-- Bootstrap -->
+<link href="/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/assets/css/bs/font-nanumgothic.css" rel="stylesheet">
+<link href="/assets/css/bs/main.css" rel="stylesheet">
+
+<style>
+
+</style>
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+	<div class="container">
+		<header>
+			<h2>My Site</h2>
+			<ul>
+				{% if request.session.authuser is None %}
+					<li><a href="/user/loginform">로그인</a></li>
+					<li><a href="/user/joinform">회원가입</a></li>
+				{% else %}
+					<li><a href="/user/updateform">회원정보수정</a></li>
+					<li><a href="/user/logout">로그아웃</a></li>
+					<li>{{ request.session.authuser.name }}님 안녕하세요 ^^;</li>
+				{% endif %}
+			</ul>
+		</header>
+		<div class="row">
+			<div class="col-md-2">
+				<ul class="nav nav-pills nav-stacked">
+					<li class="active"><a href="/">김영호</a></li>
+					<li><a href="/guestbook">방명록</a></li>
+					<li><a href="/board">게시판</a></li>
+				</ul>
+			</div>
+			<div class="col-md-10 cont">
+				<div id="site-introduction">
+					<img id="profile" src="/assets/images/profile.jpg">
+					<h2>안녕하세요. rdevnoah의  mysite에 오신 것을 환영합니다.</h2>
+					<p>
+						이 사이트는  웹 프로그램밍 실습과제 예제 사이트입니다.<br>
+						메뉴는  사이트 소개, 방명록, 게시판이 있구요. Python 수업 + 데이터베이스 수업 + 웹프로그래밍 수업 배운 거 있는거 없는 거 다 합쳐서
+						만들어 놓은 사이트 입니다.<br><br>
+						<a href="/guestbook">방명록</a>에 글 남기기<br>
+					</p>
+				</div>
+			</div>
+
+		</div>
+		<hr>
+		<footer><p>(c)opyright 2015, 2016, 2017, 2018, 2019</p></footer>
+	</div>
+</body>
+</html>

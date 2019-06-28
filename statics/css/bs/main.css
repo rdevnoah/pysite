@@ -1,0 +1,65 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+header {
+	height: 100px;
+    padding: 10px;
+    margin: 10px 0;
+    font-family: 'Nanum Gothic', sans-serif;
+    text-align: center;
+    border-bottom: 3px double #444;
+}
+
+
+
+a{
+    color: #444;
+}
+
+body {
+    color: #444;
+}
+
+.nav li a{
+    color: #444;
+    text-decoration: none;
+}
+
+header ul li a:hover {
+    color: #999;
+    text-decoration:none;
+}
+
+header ul li a {
+    color: #777;
+}
+
+header ul{
+	float: right;
+	display: block;
+}
+header ul li{
+	text-align: right;
+	display: block;
+	float: left;
+	padding-right: 19px;
+}
+footer {
+	font-family: 'Nanum Gothic', sans-serif;
+	text-align: center;
+}
+
+ul.nav {
+	background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#profile {
+	width: 200px;
+	height: 200px;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+    color: #fff;
+    background-color: #777;
+}
